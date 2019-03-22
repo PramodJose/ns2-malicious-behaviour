@@ -8,15 +8,15 @@ set val(ll)				LL
 set val(ant)			Antenna/OmniAntenna
 set val(rp)				DSDV
 
-if {$argc != 3} {
-	puts "Usage:-\nns $argv0 <mal-node-percentage \[0.0-0.9\]> <attack-type\[c/p/r\]> <out-file>"
+if {$argc != 6} {
+	puts "Usage:-\nns $argv0 <node-count> <mal-node-percentage \[0.0-0.9\]> <attack-type\[c/p/r\]> <out-thrput-file> <out-trace-file> <ID>"
 	exit 1
-} elseif {![string is double [lindex $argv 0]]} {
+} elseif {![string is double [lindex $argv 1]]} {
 	puts "The percentage of malicious nodes should be a float"
 	exit 1
 }
 
-set mal_percntg [lindex $argv 0]
+set mal_percntg [lindex $argv 1]
 if {$mal_percntg < 0.0 || $mal_percntg > 0.9} {
 	puts "Invalid malicious node percentage. Please enter a decimal number between 0.1 and 0.9."
 	exit 1
@@ -24,18 +24,20 @@ if {$mal_percntg < 0.0 || $mal_percntg > 0.9} {
 
 set val(maxx)			175
 set val(maxy)			175
-set val(nn)				10
-set val(mal_nn)			[expr {int([lindex $argv 0] * $val(nn))}]
+set val(nn)				[lindex $argv 0]
+set val(mal_nn)			[expr {int([lindex $argv 1] * $val(nn))}]
 set val(ben_nn)			[expr {$val(nn) - $val(mal_nn)}]
-set val(attack-type)	[lindex $argv 1]
+set val(attack-type)	[lindex $argv 2]
 set val(sim_time)		20.0
-set val(buff_time)		0.1
+set val(buff_time)		0.01
 set val(scene)			"scen_$argv0"
 set val(conn)			"conn_$argv0"
 set val(events)			"events_$argv0"
-set val(plot_file)		[lindex $argv 2]
 set val(mal_time)		0.0
 set val(poll_delta)		$val(sim_time)
+set val(thrput_file)	[lindex $argv 3]
+set val(trace_file)		[lindex $argv 4]
+set val(ID)				[lindex $argv 5]
 
 # if {$val(mal_nn) >= $val(nn) } {
 # 	puts "The malicious nodes are greater or equal to\
@@ -63,14 +65,16 @@ $ns_ node-config	-adhocRouting $val(rp) \
 					-agentTrace ON \
 					-routerTrace OFF \
 					-macTrace OFF \
-					-movementTrace OFF				
+					-movementTrace OFF \
+					-toraDebug OFF \
+					-mobileIP OFF			
 		
 					
 # set namtrace_fh [open "$argv0.nam" w]
 # $ns_ namtrace-all-wireless $namtrace_fh $val(maxx) $val(maxy)
-set trace_fh [open "$argv0.tr" w]
+set trace_fh [open "$val(trace_file)$val(ID)" w]
 $ns_ trace-all $trace_fh
-set plot_fh [open $val(plot_file) w]
+set plot_fh [open "$val(thrput_file)$val(ID)" w]
 
 proc finish {} {
 	global ns_ trace_fh argv0 val plot_fh ;#namtrace_fh
