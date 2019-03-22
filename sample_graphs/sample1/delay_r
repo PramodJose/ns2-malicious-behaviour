@@ -1,0 +1,11 @@
+thickness = 2.0
+title = Random Jamming: Average delay vs. varying percentage of malicious nodes (nodes: 10, simulation runs: 50)
+title_x = Percentage of malicious nodes
+title_y = Average delay (seconds)
+
+0.0 8.538250764823932
+0.1 8.502669968600014
+0.2 8.690633406106949
+0.3 8.721548724683686
+0.4 8.702571298235526
+0.5 8.662330821919834

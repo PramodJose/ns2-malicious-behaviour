@@ -1,0 +1,11 @@
+thickness = 2.0
+title = Constant Jamming: Average throughput vs. varying percentage of malicious nodes (nodes: 10, simulation runs: 50)
+title_x = Percentage of malicious nodes
+title_y = Average throughput (bytes/second)
+
+0.0 59619.575
+0.1 44570.975
+0.2 34247.625
+0.3 25623.375
+0.4 17884.9
+0.5 12904.675

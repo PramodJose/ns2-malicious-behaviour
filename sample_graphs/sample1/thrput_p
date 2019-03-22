@@ -1,0 +1,11 @@
+thickness = 2.0
+title = Periodic Jamming: Average throughput vs. varying percentage of malicious nodes (nodes: 10, simulation runs: 50)
+title_x = Percentage of malicious nodes
+title_y = Average throughput (bytes/second)
+
+0.0 59087.6
+0.1 44832.375
+0.2 34915.65
+0.3 25650.625
+0.4 17032.65
+0.5 12356.225
